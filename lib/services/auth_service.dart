@@ -36,7 +36,9 @@ class AuthService {
             if (troles is List) {
               for (final r in troles) {
                 final rs = r.toString().toLowerCase();
-                if (rs == 'admin' || rs == 'superadmin' || rs == 'super_admin') {
+                if (rs == 'admin' ||
+                    rs == 'superadmin' ||
+                    rs == 'super_admin') {
                   allowed = true;
                   break;
                 }
@@ -54,7 +56,8 @@ class AuthService {
         if (prefs.getString(_tokenKey) != null) await prefs.remove(_tokenKey);
         // Throw a structured error so UI shows a friendly message
         final msg = jsonEncode({
-          'message': 'Acceso denegado: solo administradores pueden usar esta app',
+          'message':
+              'Acceso denegado: solo administradores pueden usar esta app',
           'messageCode': 'auth.access_denied',
           'code': 403
         });
@@ -119,7 +122,8 @@ class AuthService {
       }
     }
 
-    throw Exception(resp.body.isNotEmpty ? resp.body : 'Error: ${resp.statusCode}');
+    throw Exception(
+        resp.body.isNotEmpty ? resp.body : 'Error: ${resp.statusCode}');
   }
 
   /// Envía solicitud de restablecimiento de contraseña al backend.
@@ -139,7 +143,8 @@ class AuthService {
       }
     }
 
-    throw Exception(resp.body.isNotEmpty ? resp.body : 'Error: ${resp.statusCode}');
+    throw Exception(
+        resp.body.isNotEmpty ? resp.body : 'Error: ${resp.statusCode}');
   }
 
   static Future<String?> getToken() async {

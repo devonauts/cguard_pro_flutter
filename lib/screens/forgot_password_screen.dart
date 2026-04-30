@@ -36,13 +36,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     try {
       final ok = await AuthService.sendPasswordReset(email);
       if (!mounted) return;
-        setState(() => _loading = false);
+      setState(() => _loading = false);
       if (ok) {
         final msg = I18n.t('forgot.send_button', LocaleService.current);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(msg)));
         Navigator.of(context).pop();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo enviar el correo.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('No se pudo enviar el correo.')));
       }
     } catch (e) {
       if (!mounted) return;
@@ -81,13 +83,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
         if (decoded['messageCode'] != null) {
           try {
-            final locale = Localizations.localeOf(context).languageCode.toLowerCase();
+            final locale =
+                Localizations.localeOf(context).languageCode.toLowerCase();
             String lang = 'en';
-            if (locale.startsWith('es')) lang = 'es';
+            if (locale.startsWith('es'))
+              lang = 'es';
             else if (locale.startsWith('pt')) lang = 'pt';
             friendly = I18n.t(decoded['messageCode'].toString(), lang);
           } catch (_) {
-            friendly = decoded['message']?.toString() ?? decoded['error']?.toString() ?? friendly;
+            friendly = decoded['message']?.toString() ??
+                decoded['error']?.toString() ??
+                friendly;
           }
         } else if (decoded['message'] != null) {
           final rawMsg = decoded['message'].toString();
@@ -97,16 +103,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           } else {
             friendly = rawMsg;
           }
-        }
-        else if (decoded['error'] != null) friendly = decoded['error'].toString();
-        else if (fieldErrors.isNotEmpty) friendly = fieldErrors.values.first ?? friendly;
+        } else if (decoded['error'] != null)
+          friendly = decoded['error'].toString();
+        else if (fieldErrors.isNotEmpty)
+          friendly = fieldErrors.values.first ?? friendly;
       }
     } catch (_) {
       // ignore: avoid_print
       print('API error raw: $raw');
     }
 
-    final show = (friendly.isNotEmpty && friendly != 'Ocurrió un error') ? friendly : 'Error al comunicarse con el servidor';
+    final show = (friendly.isNotEmpty && friendly != 'Ocurrió un error')
+        ? friendly
+        : 'Error al comunicarse con el servidor';
     if (mounted) Notify.showToast(context, show, error: true);
     setState(() {
       if (fieldErrors.isNotEmpty) _fieldErrors.addAll(fieldErrors);
@@ -138,35 +147,50 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 6),
-                  Text(I18n.t('forgot.title', LocaleService.current), style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text(I18n.t('forgot.title', LocaleService.current),
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                   const SizedBox(height: 8),
-                  Text('Usando la plataforma de gestión de seguridad física CGUARD.', style: TextStyle(color: Colors.white70)),
+                  Text(
+                      'Usando la plataforma de gestión de seguridad física CGUARD.',
+                      style: TextStyle(color: Colors.white70)),
                   const SizedBox(height: 18),
-
                   Card(
                     color: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                     elevation: 4,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(I18n.t('label.email_required', LocaleService.current), style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87)),
+                          Text(
+                              I18n.t('label.email_required',
+                                  LocaleService.current),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87)),
                           const SizedBox(height: 10),
                           TextField(
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: I18n.t('forgot.email_placeholder', LocaleService.current),
+                              hintText: I18n.t('forgot.email_placeholder',
+                                  LocaleService.current),
                               hintStyle: TextStyle(color: Colors.grey[600]),
-                              prefixIcon: Icon(Icons.mail_outline, color: Colors.grey[700]),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+                              prefixIcon: Icon(Icons.mail_outline,
+                                  color: Colors.grey[700]),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
                               errorText: _fieldErrors['email'],
                             ),
-                            onChanged: (_) => setState(() => _fieldErrors.remove('email')),
+                            onChanged: (_) =>
+                                setState(() => _fieldErrors.remove('email')),
                           ),
-
                           const SizedBox(height: 18),
                           SizedBox(
                             height: 52,
@@ -174,28 +198,49 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               onPressed: _loading ? null : _sendReset,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: accent,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
                               ),
-                                child: _loading
-                                  ? const CircularProgressIndicator(color: Colors.white)
-                                  : Text(I18n.t('forgot.send_button', LocaleService.current), style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                              child: _loading
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white)
+                                  : Text(
+                                      I18n.t('forgot.send_button',
+                                          LocaleService.current),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
                             ),
                           ),
-
                           const SizedBox(height: 14),
-                          Row(children: const [Expanded(child: Divider()), Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('o')), Expanded(child: Divider())]),
-
+                          Row(children: const [
+                            Expanded(child: Divider()),
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text('o')),
+                            Expanded(child: Divider())
+                          ]),
                           const SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
                                 onPressed: () => Navigator.of(context).pop(),
-                                child: Text(I18n.t('btn.back_to_login', LocaleService.current), style: TextStyle(color: accent)),
+                                child: Text(
+                                    I18n.t('btn.back_to_login',
+                                        LocaleService.current),
+                                    style: TextStyle(color: accent)),
                               ),
                               TextButton(
-                                onPressed: () => Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (_) => const RegisterScreen())),
-                                  child: Text(I18n.t('btn.create_account', LocaleService.current), style: TextStyle(color: accent)),
+                                onPressed: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        fullscreenDialog: true,
+                                        builder: (_) =>
+                                            const RegisterScreen())),
+                                child: Text(
+                                    I18n.t('btn.create_account',
+                                        LocaleService.current),
+                                    style: TextStyle(color: accent)),
                               ),
                             ],
                           ),

@@ -36,16 +36,19 @@ class _SignInScreenState extends State<SignInScreen> {
 
   String? _validateEmail(String? v) {
     final lang = LocaleService.current;
-    if (v == null || v.trim().isEmpty) return I18n.t('validator.email_required', lang);
+    if (v == null || v.trim().isEmpty)
+      return I18n.t('validator.email_required', lang);
     final email = v.trim();
     final emailRegex = RegExp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-    if (!emailRegex.hasMatch(email)) return I18n.t('validator.email_invalid', lang);
+    if (!emailRegex.hasMatch(email))
+      return I18n.t('validator.email_invalid', lang);
     return null;
   }
 
   String? _validatePassword(String? v) {
     final lang = LocaleService.current;
-    if (v == null || v.isEmpty) return I18n.t('validator.password_required', lang);
+    if (v == null || v.isEmpty)
+      return I18n.t('validator.password_required', lang);
     if (v.length < 6) return I18n.t('validator.password_short', lang);
     return null;
   }
@@ -162,47 +165,61 @@ class _SignInScreenState extends State<SignInScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(18)),
+                    borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(18)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 18),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(height: 6),
-                            // App title and welcome (reactive to language)
-                            ValueListenableBuilder<String>(
-                              valueListenable: LocaleService.lang,
-                              builder: (_, cur, __) => Text(I18n.t('app.title', cur), style: TextStyle(color: Color.fromRGBO(200, 134, 10, 0.95), fontSize: 14, fontWeight: FontWeight.bold)),
-                            ),
-                            const SizedBox(height: 8),
-                            ValueListenableBuilder<String>(
-                              valueListenable: LocaleService.lang,
-                              builder: (_, cur, __) => Text(I18n.t('welcome', cur), style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.w800)),
-                            ),
+                        // App title and welcome (reactive to language)
+                        ValueListenableBuilder<String>(
+                          valueListenable: LocaleService.lang,
+                          builder: (_, cur, __) => Text(
+                              I18n.t('app.title', cur),
+                              style: TextStyle(
+                                  color: Color.fromRGBO(200, 134, 10, 0.95),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(height: 8),
+                        ValueListenableBuilder<String>(
+                          valueListenable: LocaleService.lang,
+                          builder: (_, cur, __) => Text(I18n.t('welcome', cur),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.w800)),
+                        ),
                         const SizedBox(height: 8),
                         Expanded(
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: CircleAvatar(
                               radius: 36,
-                              backgroundColor: Color.fromRGBO(200, 134, 10, 0.14),
-                              child: const Icon(Icons.shield, color: Colors.white, size: 36),
+                              backgroundColor:
+                                  Color.fromRGBO(200, 134, 10, 0.14),
+                              child: const Icon(Icons.shield,
+                                  color: Colors.white, size: 36),
                             ),
                           ),
                         ),
-                            // language toggle placed below avatar
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ValueListenableBuilder<String>(
-                                valueListenable: LocaleService.lang,
-                                builder: (_, cur, __) => TextButton(
-                                  onPressed: () => LocaleService.toggle(),
-                                  child: Text(cur.toUpperCase()),
-                                  style: TextButton.styleFrom(foregroundColor: Colors.white70),
-                                ),
-                              ),
+                        // language toggle placed below avatar
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: ValueListenableBuilder<String>(
+                            valueListenable: LocaleService.lang,
+                            builder: (_, cur, __) => TextButton(
+                              onPressed: () => LocaleService.toggle(),
+                              child: Text(cur.toUpperCase()),
+                              style: TextButton.styleFrom(
+                                  foregroundColor: Colors.white70),
                             ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -216,40 +233,48 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Card(
                     color: Colors.white,
                     elevation: 2,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 18.0),
                       child: Form(
-                              key: _formKey,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              child: Column(
+                        key: _formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             // Email
                             TextFormField(
                               controller: _emailController,
-                                    decoration: InputDecoration(
-                                            labelText: I18n.t('label.email', LocaleService.current),
-                                            labelStyle: const TextStyle(color: _cardText),
-                                            prefixIcon: const Icon(Icons.email_outlined),
-                                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              borderSide: BorderSide(color: Colors.grey.shade400, width: 1.2),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              borderSide: BorderSide(color: _accent, width: 2.0),
-                                            ),
-                                            errorText: _fieldErrors['email'],
-                                          ),
+                              decoration: InputDecoration(
+                                labelText: I18n.t(
+                                    'label.email', LocaleService.current),
+                                labelStyle: const TextStyle(color: _cardText),
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade400, width: 1.2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide:
+                                      BorderSide(color: _accent, width: 2.0),
+                                ),
+                                errorText: _fieldErrors['email'],
+                              ),
                               keyboardType: TextInputType.emailAddress,
                               validator: _validateEmail,
-                                          onChanged: (_) => setState(() {
-                                            _formValid = _formKey.currentState?.validate() ?? false;
-                                            _fieldErrors.remove('email');
-                                          }),
+                              onChanged: (_) => setState(() {
+                                _formValid =
+                                    _formKey.currentState?.validate() ?? false;
+                                _fieldErrors.remove('email');
+                              }),
                             ),
                             const SizedBox(height: 12),
 
@@ -257,28 +282,36 @@ class _SignInScreenState extends State<SignInScreen> {
                             TextFormField(
                               controller: _passwordController,
                               decoration: InputDecoration(
-                                labelText: I18n.t('label.password', LocaleService.current),
+                                labelText: I18n.t(
+                                    'label.password', LocaleService.current),
                                 labelStyle: const TextStyle(color: _cardText),
                                 prefixIcon: const Icon(Icons.lock_outline),
                                 suffixIcon: IconButton(
-                                  icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
-                                  onPressed: () => setState(() => _obscure = !_obscure),
+                                  icon: Icon(_obscure
+                                      ? Icons.visibility_off
+                                      : Icons.visibility),
+                                  onPressed: () =>
+                                      setState(() => _obscure = !_obscure),
                                 ),
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0)),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.grey.shade400, width: 1.2),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade400, width: 1.2),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: _accent, width: 2.0),
+                                  borderSide:
+                                      BorderSide(color: _accent, width: 2.0),
                                 ),
                                 errorText: _fieldErrors['password'],
                               ),
                               obscureText: _obscure,
                               validator: _validatePassword,
                               onChanged: (_) => setState(() {
-                                _formValid = _formKey.currentState?.validate() ?? false;
+                                _formValid =
+                                    _formKey.currentState?.validate() ?? false;
                                 _fieldErrors.remove('password');
                               }),
                             ),
@@ -293,17 +326,26 @@ class _SignInScreenState extends State<SignInScreen> {
                               height: 54,
                               child: Builder(builder: (ctx) {
                                 final enabled = _formValid && !_loading;
-                                final buttonColor = enabled ? _accent : Colors.grey[350];
+                                final buttonColor =
+                                    enabled ? _accent : Colors.grey[350];
                                 return ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: buttonColor,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
                                     elevation: 0,
                                   ),
                                   onPressed: enabled ? _submit : null,
                                   child: _loading
-                                      ? const CircularProgressIndicator(color: Colors.white)
-                                      : Text(I18n.t('btn.sign_in', LocaleService.current), style: const TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.bold)),
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white)
+                                      : Text(
+                                          I18n.t('btn.sign_in',
+                                              LocaleService.current),
+                                          style: const TextStyle(
+                                              letterSpacing: 1.2,
+                                              fontWeight: FontWeight.bold)),
                                 );
                               }),
                             ),
@@ -314,12 +356,28 @@ class _SignInScreenState extends State<SignInScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (_) => const ForgotPasswordScreen())),
-                                  child: Text(I18n.t('link.forgot', LocaleService.current), style: const TextStyle(color: Color(0xFF0F1923))),
+                                  onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          fullscreenDialog: true,
+                                          builder: (_) =>
+                                              const ForgotPasswordScreen())),
+                                  child: Text(
+                                      I18n.t(
+                                          'link.forgot', LocaleService.current),
+                                      style: const TextStyle(
+                                          color: Color(0xFF0F1923))),
                                 ),
                                 TextButton(
-                                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (_) => const RegisterScreen())),
-                                  child: Text(I18n.t('link.create_account', LocaleService.current), style: const TextStyle(color: Color(0xFFC8860A))),
+                                  onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          fullscreenDialog: true,
+                                          builder: (_) =>
+                                              const RegisterScreen())),
+                                  child: Text(
+                                      I18n.t('link.create_account',
+                                          LocaleService.current),
+                                      style: const TextStyle(
+                                          color: Color(0xFFC8860A))),
                                 ),
                               ],
                             ),
@@ -399,29 +457,37 @@ class _SignInScreenState extends State<SignInScreen> {
         // prefer backend messageCode translation when available
         if (decoded['messageCode'] != null) {
           try {
-            final locale = Localizations.localeOf(context).languageCode.toLowerCase();
+            final locale =
+                Localizations.localeOf(context).languageCode.toLowerCase();
             String lang = 'en';
-            if (locale.startsWith('es')) lang = 'es';
+            if (locale.startsWith('es'))
+              lang = 'es';
             else if (locale.startsWith('pt')) lang = 'pt';
             friendly = I18n.t(decoded['messageCode'].toString(), lang);
           } catch (_) {
-            friendly = decoded['message']?.toString() ?? decoded['error']?.toString() ?? friendly;
+            friendly = decoded['message']?.toString() ??
+                decoded['error']?.toString() ??
+                friendly;
           }
         } else if (decoded['message'] != null) {
           final rawMsg = decoded['message'].toString();
           // If backend didn't send messageCode, try to map raw message to a known code
           final key = I18n.keyForMessage(rawMsg);
           if (key != null) {
-            final locale = Localizations.localeOf(context).languageCode.toLowerCase();
+            final locale =
+                Localizations.localeOf(context).languageCode.toLowerCase();
             String lang = 'en';
-            if (locale.startsWith('es')) lang = 'es';
+            if (locale.startsWith('es'))
+              lang = 'es';
             else if (locale.startsWith('pt')) lang = 'pt';
             friendly = I18n.t(key, lang);
           } else {
             friendly = rawMsg;
           }
-        } else if (decoded['error'] != null) friendly = decoded['error'].toString();
-        else if (_fieldErrors.isNotEmpty) friendly = _fieldErrors.values.first ?? friendly;
+        } else if (decoded['error'] != null)
+          friendly = decoded['error'].toString();
+        else if (_fieldErrors.isNotEmpty)
+          friendly = _fieldErrors.values.first ?? friendly;
       }
     } catch (_) {
       // don't show raw exception to user; log for debugging
@@ -430,9 +496,10 @@ class _SignInScreenState extends State<SignInScreen> {
     }
 
     // show concise message (prefer friendly, fallback generic)
-    final show = (friendly.isNotEmpty && friendly != 'Ocurrió un error') ? friendly : 'Error al comunicarse con el servidor';
+    final show = (friendly.isNotEmpty && friendly != 'Ocurrió un error')
+        ? friendly
+        : 'Error al comunicarse con el servidor';
     if (mounted) Notify.showToast(context, show, error: true);
     setState(() {});
   }
-
 }

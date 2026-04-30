@@ -12,8 +12,7 @@ class I18n {
       'es': 'Contactar al administrador',
       'en': 'Contact administrator',
       'pt': 'Contactar o administrador',
-    }
-    ,
+    },
     // Backend message codes
     'auth.wrongPassword': {
       'es': 'Contraseña incorrecta.',
@@ -31,9 +30,12 @@ class I18n {
       'pt': 'Credenciais inválidas.',
     },
     'auth.access_denied': {
-      'es': 'Acceso denegado: tu cuenta no tiene permisos para usar esta app móvil. Contacta al administrador.',
-      'en': 'Access denied: your account lacks permissions to use this mobile app. Contact your administrator.',
-      'pt': 'Acesso negado: sua conta não tem permissões para usar este aplicativo móvel. Contate o administrador.',
+      'es':
+          'Acceso denegado: tu cuenta no tiene permisos para usar esta app móvil. Contacta al administrador.',
+      'en':
+          'Access denied: your account lacks permissions to use this mobile app. Contact your administrator.',
+      'pt':
+          'Acesso negado: sua conta não tem permissões para usar este aplicativo móvel. Contate o administrador.',
     }
   };
 
@@ -104,34 +106,50 @@ class I18n {
   // additional UI keys used by register/forgot screens
   static const Map<String, Map<String, String>> _ui_extra = {
     'label.full_name': {
-      'es': 'Nombre completo*', 'en': 'Full name*', 'pt': 'Nome completo*'
+      'es': 'Nombre completo*',
+      'en': 'Full name*',
+      'pt': 'Nome completo*'
     },
     'label.email_required': {
-      'es': 'Correo electrónico*', 'en': 'Email*', 'pt': 'Email*'
+      'es': 'Correo electrónico*',
+      'en': 'Email*',
+      'pt': 'Email*'
     },
     'label.confirm_password': {
-      'es': 'Confirmar contraseña*', 'en': 'Confirm password*', 'pt': 'Confirmar senha*'
+      'es': 'Confirmar contraseña*',
+      'en': 'Confirm password*',
+      'pt': 'Confirmar senha*'
     },
     'btn.create_account': {
-      'es': 'Crear cuenta', 'en': 'Create account', 'pt': 'Criar conta'
+      'es': 'Crear cuenta',
+      'en': 'Create account',
+      'pt': 'Criar conta'
     },
     'prompt.already_have_account': {
-      'es': '¿Ya tienes una cuenta?', 'en': 'Already have an account?', 'pt': '¿Já tem conta?'
+      'es': '¿Ya tienes una cuenta?',
+      'en': 'Already have an account?',
+      'pt': '¿Já tem conta?'
     },
-    'link.sign_in': {
-      'es': 'Iniciar sesión', 'en': 'Sign in', 'pt': 'Entrar'
-    },
+    'link.sign_in': {'es': 'Iniciar sesión', 'en': 'Sign in', 'pt': 'Entrar'},
     'forgot.title': {
-      'es': '¿Olvidaste tu contraseña?', 'en': 'Forgot your password?', 'pt': 'Esqueceu sua senha?'
+      'es': '¿Olvidaste tu contraseña?',
+      'en': 'Forgot your password?',
+      'pt': 'Esqueceu sua senha?'
     },
     'forgot.send_button': {
-      'es': 'ENVIAR ENLACE DE RESTABLECIMIENTO', 'en': 'SEND RESET LINK', 'pt': 'ENVIAR LINK DE REDEFINIÇÃO'
+      'es': 'ENVIAR ENLACE DE RESTABLECIMIENTO',
+      'en': 'SEND RESET LINK',
+      'pt': 'ENVIAR LINK DE REDEFINIÇÃO'
     },
     'forgot.email_placeholder': {
-      'es': 'tu@empresa.com', 'en': 'you@company.com', 'pt': 'voce@empresa.com'
+      'es': 'tu@empresa.com',
+      'en': 'you@company.com',
+      'pt': 'voce@empresa.com'
     },
     'btn.back_to_login': {
-      'es': 'Volver al inicio', 'en': 'Back to login', 'pt': 'Voltar ao login'
+      'es': 'Volver al inicio',
+      'en': 'Back to login',
+      'pt': 'Voltar ao login'
     }
   };
 
@@ -175,7 +193,8 @@ class I18n {
       for (final v in entry.value.values) {
         final nv = normalize(v);
         if (nv == normalizedMsg) return entry.key;
-        if (nv.contains(normalizedMsg) || normalizedMsg.contains(nv)) return entry.key;
+        if (nv.contains(normalizedMsg) || normalizedMsg.contains(nv))
+          return entry.key;
       }
     }
     return null;

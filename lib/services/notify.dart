@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class Notify {
-  static void showToast(BuildContext context, String message, {Duration duration = const Duration(seconds: 3), bool error = false}) {
+  static void showToast(BuildContext context, String message,
+      {Duration duration = const Duration(seconds: 3), bool error = false}) {
     final entry = OverlayEntry(builder: (ctx) {
       return Positioned(
         top: 36 + MediaQuery.of(ctx).padding.top,
@@ -16,9 +17,15 @@ class Notify {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
-                color: error ? const Color(0xFF3b2b2b) : const Color(0xFF222222),
+                color:
+                    error ? const Color(0xFF3b2b2b) : const Color(0xFF222222),
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0, 3))],
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8,
+                      offset: Offset(0, 3))
+                ],
               ),
               child: Center(
                 child: Text(
