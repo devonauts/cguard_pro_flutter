@@ -1,0 +1,22 @@
+name: cguard_pro_flutter
+description: "Base Flutter app for CGuard Pro"
+publish_to: 'none'
+version: 0.1.0+1
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6
+  flutter_dotenv: ^5.0.2
+  shared_preferences: ^2.0.15
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
